@@ -7,6 +7,7 @@ import {
 } from '@vtex/api'
 import { Clients } from './clients'
 import { updateLiveUsers } from './event/liveUsersUpdate'
+import { productList } from './resolvers/products'
 
 // Create a LRU memory cache for the Status client.
 // The @vtex/api HttpClient respects Cache-Control headers and uses the provided cache.
@@ -44,5 +45,12 @@ export default new Service<Clients, State, ParamsContext>({
   },
   events: {
     liveUsersUpdate: updateLiveUsers,
+  },
+  graphql: {
+    resolvers: {
+        Query: {
+            productList,
+        },
+    },
   },
 })
